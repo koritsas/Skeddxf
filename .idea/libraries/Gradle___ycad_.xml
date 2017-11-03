@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: :ycad:">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/ycad-1.0.2/lib/ycad.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
