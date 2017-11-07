@@ -8,7 +8,7 @@ public class Application {
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         SkeddxfUI skeddDXF = (SkeddxfUI) context.getBean("ApplicationUI");
-
+        //context.getBean("Listeners");
 
         skeddDXF.setVisible(true);
 

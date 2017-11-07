@@ -5,20 +5,12 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
-			"$columnConstraints": "[fill][fill]"
+			"$columnConstraints": "[left][]"
 			"$rowConstraints": "[][][][][0][]"
 		} ) {
 			name: "this"
 			"title": "Skeddxf"
 			"defaultCloseOperation": 3
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane1"
-				add( new FormComponent( "javax.swing.JTree" ) {
-					name: "tree1"
-				} )
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 1"
-			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "tablePane"
 				add( new FormComponent( "javax.swing.JTable" ) {
@@ -63,7 +55,21 @@ new FormModel {
 						add( null )
 						add( null )
 					} )
+					"cellSelectionEnabled": true
+					"surrendersFocusOnKeystroke": true
+					"selectionForeground": sfield java.awt.Color lightGray
+					"autoCreateRowSorter": true
+					auxiliary() {
+						"JavaCodeGenerator.variableGetter": true
+					}
 				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1,growx"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Export to DXF"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 1"
 			} )
@@ -77,9 +83,10 @@ new FormModel {
 				name: "formatComboBox"
 				auxiliary() {
 					"JavaCodeGenerator.postInitCode": "${field}.addItem(\"nxyz_comma\");\n${field}.addItem(\"nxyz_space\");\n${field}.addItem(\"nxyz_tab\");\n${field}.addItem(\"nxyzd_comma\");\n${field}.addItem(\"nxyzd_space\");\n${field}.addItem(\"nxyzd_tab\");"
+					"JavaCodeGenerator.variableGetter": true
 				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 2"
+				"value": "cell 0 2,dock center"
 			} )
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "tabbedPane"
@@ -101,6 +108,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "pointName"
 						"text": "Points"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 1,alignx center,growx 0"
 					} )
@@ -109,6 +119,14 @@ new FormModel {
 						"text": "Color:"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 1,alignx center,growx 0"
+					} )
+					add( new FormComponent( "org.koritsas.UI.components.JColorComboBox" ) {
+						name: "pointColorBox"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 4 1,growy"
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Point"
@@ -122,6 +140,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "numberCheckBox"
 						"text": "Add Numbers"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0 2 1"
 					} )
@@ -134,6 +155,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "numberHeight"
 						"text": "1.000"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 1"
 					} )
@@ -146,6 +170,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "numberName"
 						"text": "Point_id"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 1"
 					} )
@@ -155,18 +182,29 @@ new FormModel {
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 4 1,alignx center,growx 0"
 					} )
+					add( new FormComponent( "org.koritsas.UI.components.JColorComboBox" ) {
+						name: "numberColorBox"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 5 1,growy"
+					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Number"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "fill,hidemode 3,align left top"
-					"$columnConstraints": "[fill][fill][][][][]"
+					"$columnConstraints": "[fill][fill][fill][fill][fill][fill]"
 					"$rowConstraints": "[][]"
 				} ) {
 					name: "elevationTab"
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "elevationCheckBox"
 						"text": "Add Elevation"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0 2 1"
 					} )
@@ -179,6 +217,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "elevationHeight"
 						"text": "1.000"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 1"
 					} )
@@ -191,6 +232,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "elevationName"
 						"text": "Point_H"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 1"
 					} )
@@ -199,6 +243,14 @@ new FormModel {
 						"text": "Color:"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 4 1,alignx center,growx 0"
+					} )
+					add( new FormComponent( "org.koritsas.UI.components.JColorComboBox" ) {
+						name: "elevationColorBox"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 5 1,growy"
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Elevation"
@@ -212,6 +264,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "descriptionCheckBox"
 						"text": "Add Description"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0 2 1"
 					} )
@@ -224,6 +279,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "descriptionHeight"
 						"text": "1.000"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 1"
 					} )
@@ -236,6 +294,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "descriptionName"
 						"text": "Point_Desc"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 1"
 					} )
@@ -244,6 +305,14 @@ new FormModel {
 						"text": "Color:"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 4 1,alignx center,growx 0"
+					} )
+					add( new FormComponent( "org.koritsas.UI.components.JColorComboBox" ) {
+						name: "descriptionColorBox"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 5 1,growy"
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Description"
@@ -259,6 +328,10 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "importMenuItem"
 						"text": "Import"
+						auxiliary() {
+							"JavaCodeGenerator.variableGetter": true
+						}
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "importMenuItemActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "exportMenuItem"
@@ -284,7 +357,7 @@ new FormModel {
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 515, 390 )
+			"size": new java.awt.Dimension( 555, 470 )
 		} )
 	}
 }

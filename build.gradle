@@ -6,8 +6,9 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 
 repositories {
+
     flatDir {
-        dirs '/home/koritsas/Downloads/ycad-1.0.2/lib'
+        dirs '/home/koritsas/Downloads/kabeja-0.4/lib'
     }
 
     mavenCentral()
@@ -16,8 +17,8 @@ repositories {
 dependencies {
     compile "org.springframework.integration:spring-integration-core:4.2.1.RELEASE"
     compile group: 'com.miglayout', name: 'miglayout-swing', version: '5.0'
-    //compile "ycad:ycad:1.0.2"
-    compile name: "ycad"
+    compile name: "kabeja-0.4"
+
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

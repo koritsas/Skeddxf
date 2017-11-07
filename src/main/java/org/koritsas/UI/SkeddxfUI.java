@@ -2,12 +2,20 @@ package org.koritsas.UI;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.nio.file.Paths;
+import java.io.*;
+import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 
 import net.miginfocom.swing.*;
+import org.kabeja.dxf.DXFDocument;
+import org.koritsas.UI.components.JColorComboBox;
+import org.koritsas.utils.FileParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 /*
  * Created by JFormDesigner on Thu Nov 02 16:01:21 EET 2017
  */
@@ -18,17 +26,132 @@ import net.miginfocom.swing.*;
  * @author Ilias Koritsas
  */
 public class SkeddxfUI extends JFrame {
+    private JFileChooser mFileChooser;
+
     public SkeddxfUI() {
         initComponents();
+    }
+
+    public JMenuItem getImportMenuItem() {
+        return mImportMenuItem;
     }
 
     private void importMenuItemMouseClicked(MouseEvent e) {
         // TODO add your code here
     }
 
-    private void importMenuItemMouseClicked() {
-        // TODO add your code here
+    @Autowired
+    ApplicationContext context;
+
+    private void importMenuItemActionPerformed(ActionEvent e) {
+        mFileChooser = (JFileChooser) context.getBean("fileChooser");
+        int status =mFileChooser.showDialog(null,"Select");
+
+
+        if (status == JFileChooser.APPROVE_OPTION){
+           File inputFile = mFileChooser.getSelectedFile();
+
+            FileParser parser = new FileParser(inputFile,",");
+
+            Vector<String> names = new Vector<String>();
+            names.add("Id");
+            names.add("X");
+            names.add("Y");
+            names.add("Z");
+            names.add("Description");
+
+            TableModel model = new DefaultTableModel(parser.getPointVector(),names);
+            mTable.setModel(model);
+            //mTable.repaint();
+
+
+
+        }else if(status == JFileChooser.CANCEL_OPTION){
+
+            mFileChooser.cancelSelection();
+        }
     }
+
+    public JTable getTable() {
+        return mTable;
+    }
+
+    public JComboBox getFormatComboBox() {
+        return mFormatComboBox;
+    }
+
+    public JTextField getPointName() {
+        return mPointName;
+    }
+
+    public JColorComboBox getPointColorBox() {
+        return mPointColorBox;
+    }
+
+    public JCheckBox getNumberCheckBox() {
+        return mNumberCheckBox;
+    }
+
+    public JTextField getNumberHeight() {
+        return mNumberHeight;
+    }
+
+    public JTextField getNumberName() {
+        return mNumberName;
+    }
+
+    public JColorComboBox getNumberColorBox() {
+        return mNumberColorBox;
+    }
+
+    public JCheckBox getElevationCheckBox() {
+        return mElevationCheckBox;
+    }
+
+    public JTextField getElevationHeight() {
+        return mElevationHeight;
+    }
+
+    public JTextField getElevationName() {
+        return mElevationName;
+    }
+
+    public JColorComboBox getElevationColorBox() {
+        return mElevationColorBox;
+    }
+
+    public JCheckBox getDescriptionCheckBox() {
+        return mDescriptionCheckBox;
+    }
+
+    public JTextField getDescriptionHeight() {
+        return mDescriptionHeight;
+    }
+
+    public JTextField getDescriptionName() {
+        return mDescriptionName;
+    }
+
+    public JColorComboBox getDescriptionColorBox() {
+        return mDescriptionColorBox;
+    }
+
+    private void button1ActionPerformed(ActionEvent e) {
+
+        DXFDocument dxfDocument = (DXFDocument) context.getBean("dxfDocument");
+
+
+
+
+    }
+
+
+
+
+
+
+
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -41,10 +164,9 @@ public class SkeddxfUI extends JFrame {
         mSettingsMenu = new JMenu();
         mHelpMenu = new JMenu();
         mAboutMenu = new JMenu();
-        mScrollPane1 = new JScrollPane();
-        mTree1 = new JTree();
         mTablePane = new JScrollPane();
         mTable = new JTable();
+        mButton1 = new JButton();
         mLabel13 = new JLabel();
         mFormatComboBox = new JComboBox();
         mTabbedPane = new JTabbedPane();
@@ -52,6 +174,7 @@ public class SkeddxfUI extends JFrame {
         mLabel15 = new JLabel();
         mPointName = new JTextField();
         mLabel16 = new JLabel();
+        mPointColorBox = new JColorComboBox();
         mNumberTab = new JPanel();
         mNumberCheckBox = new JCheckBox();
         mLabel4 = new JLabel();
@@ -59,6 +182,7 @@ public class SkeddxfUI extends JFrame {
         mLabel5 = new JLabel();
         mNumberName = new JTextField();
         mLabel6 = new JLabel();
+        mNumberColorBox = new JColorComboBox();
         mElevationTab = new JPanel();
         mElevationCheckBox = new JCheckBox();
         mLabel7 = new JLabel();
@@ -66,6 +190,7 @@ public class SkeddxfUI extends JFrame {
         mLabel8 = new JLabel();
         mElevationName = new JTextField();
         mLabel9 = new JLabel();
+        mElevationColorBox = new JColorComboBox();
         mDescriptionTab = new JPanel();
         mDescriptionCheckBox = new JCheckBox();
         mLabel10 = new JLabel();
@@ -73,6 +198,7 @@ public class SkeddxfUI extends JFrame {
         mLabel11 = new JLabel();
         mDescriptionName = new JTextField();
         mLabel12 = new JLabel();
+        mDescriptionColorBox = new JColorComboBox();
 
         //======== this ========
         setTitle("Skeddxf"); //NON-NLS
@@ -81,8 +207,8 @@ public class SkeddxfUI extends JFrame {
         contentPane.setLayout(new MigLayout(
             "hidemode 3", //NON-NLS
             // columns
-            "[fill]" + //NON-NLS
-            "[fill]", //NON-NLS
+            "[left]" + //NON-NLS
+            "[]", //NON-NLS
             // rows
             "[]" + //NON-NLS
             "[]" + //NON-NLS
@@ -100,6 +226,7 @@ public class SkeddxfUI extends JFrame {
 
                 //---- mImportMenuItem ----
                 mImportMenuItem.setText("Import"); //NON-NLS
+                mImportMenuItem.addActionListener(e -> importMenuItemActionPerformed(e));
                 mFileMenu.add(mImportMenuItem);
 
                 //---- mExportMenuItem ----
@@ -132,12 +259,6 @@ public class SkeddxfUI extends JFrame {
         }
         setJMenuBar(mMenuBar1);
 
-        //======== mScrollPane1 ========
-        {
-            mScrollPane1.setViewportView(mTree1);
-        }
-        contentPane.add(mScrollPane1, "cell 0 1"); //NON-NLS
-
         //======== mTablePane ========
         {
 
@@ -151,9 +272,18 @@ public class SkeddxfUI extends JFrame {
                     "Point ID", "X", "Y", "Z", "Description" //NON-NLS
                 }
             ));
+            mTable.setCellSelectionEnabled(true);
+            mTable.setSurrendersFocusOnKeystroke(true);
+            mTable.setSelectionForeground(Color.lightGray);
+            mTable.setAutoCreateRowSorter(true);
             mTablePane.setViewportView(mTable);
         }
-        contentPane.add(mTablePane, "cell 1 1"); //NON-NLS
+        contentPane.add(mTablePane, "cell 0 1,growx"); //NON-NLS
+
+        //---- mButton1 ----
+        mButton1.setText("Export to DXF"); //NON-NLS
+        mButton1.addActionListener(e -> button1ActionPerformed(e));
+        contentPane.add(mButton1, "cell 1 1"); //NON-NLS
 
         //---- mLabel13 ----
         mLabel13.setText("Choose File format:"); //NON-NLS
@@ -166,7 +296,7 @@ public class SkeddxfUI extends JFrame {
         mFormatComboBox.addItem("nxyzd_comma"); //NON-NLS
         mFormatComboBox.addItem("nxyzd_space"); //NON-NLS
         mFormatComboBox.addItem("nxyzd_tab"); //NON-NLS
-        contentPane.add(mFormatComboBox, "cell 1 2"); //NON-NLS
+        contentPane.add(mFormatComboBox, "cell 0 2,dock center"); //NON-NLS
 
         //======== mTabbedPane ========
         {
@@ -204,6 +334,7 @@ public class SkeddxfUI extends JFrame {
                 //---- mLabel16 ----
                 mLabel16.setText("Color:"); //NON-NLS
                 mPointTab.add(mLabel16, "cell 3 1,alignx center,growx 0"); //NON-NLS
+                mPointTab.add(mPointColorBox, "cell 4 1,growy"); //NON-NLS
             }
             mTabbedPane.addTab("Point", mPointTab); //NON-NLS
 
@@ -245,6 +376,7 @@ public class SkeddxfUI extends JFrame {
                 //---- mLabel6 ----
                 mLabel6.setText("Color:"); //NON-NLS
                 mNumberTab.add(mLabel6, "cell 4 1,alignx center,growx 0"); //NON-NLS
+                mNumberTab.add(mNumberColorBox, "cell 5 1,growy"); //NON-NLS
             }
             mTabbedPane.addTab("Number", mNumberTab); //NON-NLS
 
@@ -255,10 +387,10 @@ public class SkeddxfUI extends JFrame {
                     // columns
                     "[fill]" + //NON-NLS
                     "[fill]" + //NON-NLS
-                    "[]" + //NON-NLS
-                    "[]" + //NON-NLS
-                    "[]" + //NON-NLS
-                    "[]", //NON-NLS
+                    "[fill]" + //NON-NLS
+                    "[fill]" + //NON-NLS
+                    "[fill]" + //NON-NLS
+                    "[fill]", //NON-NLS
                     // rows
                     "[]" + //NON-NLS
                     "[]")); //NON-NLS
@@ -286,6 +418,7 @@ public class SkeddxfUI extends JFrame {
                 //---- mLabel9 ----
                 mLabel9.setText("Color:"); //NON-NLS
                 mElevationTab.add(mLabel9, "cell 4 1,alignx center,growx 0"); //NON-NLS
+                mElevationTab.add(mElevationColorBox, "cell 5 1,growy"); //NON-NLS
             }
             mTabbedPane.addTab("Elevation", mElevationTab); //NON-NLS
 
@@ -327,6 +460,7 @@ public class SkeddxfUI extends JFrame {
                 //---- mLabel12 ----
                 mLabel12.setText("Color:"); //NON-NLS
                 mDescriptionTab.add(mLabel12, "cell 4 1,alignx center,growx 0"); //NON-NLS
+                mDescriptionTab.add(mDescriptionColorBox, "cell 5 1,growy"); //NON-NLS
             }
             mTabbedPane.addTab("Description", mDescriptionTab); //NON-NLS
         }
@@ -347,10 +481,9 @@ public class SkeddxfUI extends JFrame {
     private JMenu mSettingsMenu;
     private JMenu mHelpMenu;
     private JMenu mAboutMenu;
-    private JScrollPane mScrollPane1;
-    private JTree mTree1;
     private JScrollPane mTablePane;
     private JTable mTable;
+    private JButton mButton1;
     private JLabel mLabel13;
     private JComboBox mFormatComboBox;
     private JTabbedPane mTabbedPane;
@@ -358,6 +491,7 @@ public class SkeddxfUI extends JFrame {
     private JLabel mLabel15;
     private JTextField mPointName;
     private JLabel mLabel16;
+    private JColorComboBox mPointColorBox;
     private JPanel mNumberTab;
     private JCheckBox mNumberCheckBox;
     private JLabel mLabel4;
@@ -365,6 +499,7 @@ public class SkeddxfUI extends JFrame {
     private JLabel mLabel5;
     private JTextField mNumberName;
     private JLabel mLabel6;
+    private JColorComboBox mNumberColorBox;
     private JPanel mElevationTab;
     private JCheckBox mElevationCheckBox;
     private JLabel mLabel7;
@@ -372,6 +507,7 @@ public class SkeddxfUI extends JFrame {
     private JLabel mLabel8;
     private JTextField mElevationName;
     private JLabel mLabel9;
+    private JColorComboBox mElevationColorBox;
     private JPanel mDescriptionTab;
     private JCheckBox mDescriptionCheckBox;
     private JLabel mLabel10;
@@ -379,5 +515,6 @@ public class SkeddxfUI extends JFrame {
     private JLabel mLabel11;
     private JTextField mDescriptionName;
     private JLabel mLabel12;
+    private JColorComboBox mDescriptionColorBox;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
