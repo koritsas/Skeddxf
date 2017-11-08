@@ -61,6 +61,7 @@ public class SkeddxfUI extends JFrame {
             names.add("Description");
 
             TableModel model = new DefaultTableModel(parser.getPointVector(),names);
+
             mTable.setModel(model);
             //mTable.repaint();
 
