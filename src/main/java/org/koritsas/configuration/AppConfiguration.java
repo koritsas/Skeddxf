@@ -46,7 +46,7 @@ public class AppConfiguration {
         return chooser;
     }
 
-    @Bean(name ="dxfDocument")
+  /*  @Bean(name ="dxfDocument")
     public DXFDocument createDocument(){
         DXFDocument dxfDocument = new DXFDocument();
 
@@ -153,6 +153,6 @@ public class AppConfiguration {
         rgb = (rgb << 8 )+ color.getGreen();
         rgb = (rgb << 8 )+ color.getBlue();
         return rgb;
-    }
+    }*/
 
 }

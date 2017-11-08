@@ -3,6 +3,7 @@ package org.koritsas.UI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -51,7 +52,8 @@ public class SkeddxfUI extends JFrame {
         if (status == JFileChooser.APPROVE_OPTION){
            File inputFile = mFileChooser.getSelectedFile();
 
-            FileParser parser = new FileParser(inputFile,",");
+            //FileParser parser = new FileParser(inputFile,",");
+            FileParser parser = new FileParser(Paths.get(mFileChooser.getSelectedFile().getPath()),",");
 
             Vector<String> names = new Vector<String>();
             names.add("Id");
