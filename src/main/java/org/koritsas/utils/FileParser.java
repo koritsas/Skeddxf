@@ -20,27 +20,30 @@ public class FileParser {
     private Object[][] mData;
 
 
-    public FileParser(Path path, String regex){
+    public FileParser(Path path, String regex) throws IOException {
         this.mPath = path;
         this.mRegex = regex;
+        readFile();
     }
 
-    public FileParser(File file,String regex){
-        this.mFile = file;
-        this.mRegex = regex;
-    }
 
+    public Object[][] getmData() {
+        return mData;
+    }
 
     private void readFile() throws IOException{
 
 
-        int[][] arr =
-                Files.lines(mPath)
-                        .map(item -> item.chars().filter(i -> (char) i != ' ').map(Character::getNumericValue).toArray())
-                        .toArray(int[][]::new);
+        String[][]  st = Files.lines(mPath).map(s -> s.trim().split(mRegex)).toArray(String[][]::new);
 
 
-        Object[][] a = Files.lines(mPath).map(s -> s.trim().split(mRegex)).filter()
+        //Arrays.stream(st).forEach(strings -> System.out.println(strings));
+        // mData = Files.lines(mPath).map(s -> s.trim().split(mRegex)).filter(strings -> strings.toString().contains(":") == false).toArray(Object[][]::new);
+
+        mData = Files.lines(mPath).filter(s -> s.toString().contains(":")).map(s -> s.trim().split(mRegex)).toArray(Object[][]::new);
+
+        mData = Arrays.stream(mData).map(objects -> Arrays.stream(objects).filter(o -> !o.toString().contains(":")).toArray(Object[]::new)).toArray(Object[][]::new);
+
 
 
     }

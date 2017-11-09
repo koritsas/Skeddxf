@@ -46,7 +46,9 @@ public class AppConfiguration {
         return chooser;
     }
 
-  /*  @Bean(name ="dxfDocument")
+
+
+   @Bean(name ="dxfDocument")
     public DXFDocument createDocument(){
         DXFDocument dxfDocument = new DXFDocument();
 
@@ -70,6 +72,7 @@ public class AppConfiguration {
 
 
         DXFLayer pointLayer = new DXFLayer();
+        pointLayer.setColor(colorToRGB(point_color));
 
         DXFLayer numbersLayer = new DXFLayer();
         DXFLayer heightLayer = new DXFLayer();
@@ -153,6 +156,6 @@ public class AppConfiguration {
         rgb = (rgb << 8 )+ color.getGreen();
         rgb = (rgb << 8 )+ color.getBlue();
         return rgb;
-    }*/
+    }
 
 }

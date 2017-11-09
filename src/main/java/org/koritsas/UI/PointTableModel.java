@@ -7,14 +7,15 @@ import java.util.Vector;
 public class PointTableModel extends DefaultTableModel {
 
 
-    public PointTableModel(Vector<Vector<String>> pointVector, Vector<String> names) {
+    public PointTableModel(Object[][] pointVector, String[] names) {
         super(pointVector,names);
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        if (columnIndex == 1 || columnIndex == 2) {
-            return Double.class;
+        if (columnIndex == 1 || columnIndex == 2 || columnIndex == 3) {
+
+            return getValueAt(0,columnIndex).getClass();
         }
         return super.getColumnClass(columnIndex);
     }

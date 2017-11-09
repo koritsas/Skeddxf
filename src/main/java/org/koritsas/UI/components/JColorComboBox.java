@@ -18,7 +18,6 @@ public class JColorComboBox extends JComboBox {
         while(colorNames.hasMoreElements()){
             String temp = colorNames.nextElement().toString();
             model.addElement(temp);
-            System.out.println("colors"+temp);
         }
         setModel(model);
         setRenderer(new ColorRenderer());

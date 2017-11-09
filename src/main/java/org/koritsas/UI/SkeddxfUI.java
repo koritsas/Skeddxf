@@ -53,16 +53,24 @@ public class SkeddxfUI extends JFrame {
            File inputFile = mFileChooser.getSelectedFile();
 
             //FileParser parser = new FileParser(inputFile,",");
-            FileParser parser = new FileParser(Paths.get(mFileChooser.getSelectedFile().getPath()),",");
+            FileParser parser = null;
+            try {
+                parser = new FileParser(Paths.get(mFileChooser.getSelectedFile().getPath()),",");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
 
-            Vector<String> names = new Vector<String>();
+            /*Vector<String> names = new Vector<String>();
             names.add("Id");
             names.add("X");
             names.add("Y");
             names.add("Z");
             names.add("Description");
+            */
+            String[] names ={"id","x","y","z","description"};
 
-            TableModel model = new DefaultTableModel(parser.getPointVector(),names);
+            //TableModel model = new DefaultTableModel(parser.getmData());
+            TableModel model = new PointTableModel(parser.getmData(),names);
 
             mTable.setModel(model);
             //mTable.repaint();
