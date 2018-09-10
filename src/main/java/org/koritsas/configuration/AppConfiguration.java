@@ -1,9 +1,7 @@
 package org.koritsas.configuration;
 
-import org.kabeja.dxf.DXFDocument;
-import org.kabeja.dxf.DXFLayer;
-import org.kabeja.dxf.DXFPoint;
-import org.kabeja.dxf.DXFText;
+
+import com.jsevy.jdxf.DXFDocument;
 import org.koritsas.UI.SkeddxfUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,13 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class AppConfiguration {
@@ -41,7 +33,7 @@ public class AppConfiguration {
     @Bean(name = "fileChooser")
     public JFileChooser createFileChooser(){
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Text","txt"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Text","txt", "CSV", "csv"));
 
         return chooser;
     }
@@ -68,7 +60,7 @@ public class AppConfiguration {
         Color elevation_color = skeddadler.getElevationColorBox().getSelectedColor();
         Color description_color = skeddadler.getDescriptionColorBox().getSelectedColor();
 
-
+/*
         DXFLayer pointLayer = new DXFLayer();
 
         DXFLayer numbersLayer = new DXFLayer();
@@ -144,8 +136,10 @@ public class AppConfiguration {
             dxfDocument.addDXFLayer(descriptionLayer);
         }
 
-
+*/
     return dxfDocument;
+
+
     }
 
     private int colorToRGB(Color color){

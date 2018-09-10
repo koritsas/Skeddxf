@@ -1,21 +1,21 @@
 package org.koritsas.UI;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.Vector;
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
-
-import net.miginfocom.swing.*;
-import org.kabeja.dxf.DXFDocument;
+import net.miginfocom.swing.MigLayout;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.koritsas.UI.components.JColorComboBox;
-import org.koritsas.utils.FileParser;
+import org.koritsas.configuration.RecordTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.*;
+import java.util.List;
+import java.util.Vector;
 /*
  * Created by JFormDesigner on Thu Nov 02 16:01:21 EET 2017
  */
@@ -36,12 +36,11 @@ public class SkeddxfUI extends JFrame {
         return mImportMenuItem;
     }
 
-    private void importMenuItemMouseClicked(MouseEvent e) {
-        // TODO add your code here
-    }
+
 
     @Autowired
     ApplicationContext context;
+
 
     private void importMenuItemActionPerformed(ActionEvent e) {
         mFileChooser = (JFileChooser) context.getBean("fileChooser");
@@ -51,7 +50,7 @@ public class SkeddxfUI extends JFrame {
         if (status == JFileChooser.APPROVE_OPTION){
            File inputFile = mFileChooser.getSelectedFile();
 
-            FileParser parser = new FileParser(inputFile,",");
+
 
             Vector<String> names = new Vector<String>();
             names.add("Id");
@@ -60,10 +59,59 @@ public class SkeddxfUI extends JFrame {
             names.add("Z");
             names.add("Description");
 
-            TableModel model = new DefaultTableModel(parser.getPointVector(),names);
+            Reader reader;
+            CSVFormat format;
 
-            mTable.setModel(model);
-            //mTable.repaint();
+
+
+            switch ( getFormatComboBox().getSelectedItem().toString()){
+
+                case "nxyz_comma":
+                    format = CSVFormat.DEFAULT;
+                    break;
+                case "nxyzd_comma":
+                    format = CSVFormat.DEFAULT;
+                    break;
+                case "nxyz_tab":
+                    format = CSVFormat.TDF;
+                    break;
+                case "nxyzd_tab":
+                    format = CSVFormat.TDF;
+                    break;
+                case "nxyz_space":
+                    format = CSVFormat.newFormat(' ');
+                    break;
+                case "nxyzd_space":
+                    format = CSVFormat.newFormat(' ');
+                    break;
+
+                default:
+                    format = CSVFormat.DEFAULT;
+                    break;
+            }
+
+
+
+            try {
+               reader=  new FileReader(inputFile);
+
+               CSVParser parser = new CSVParser(reader, format);
+
+               List<CSVRecord> records = parser.getRecords();
+
+                RecordTableModel model = new RecordTableModel(records);
+                model.populateTable();
+
+               Vector<String> v=model.getDataVector();
+                mTable.setModel(model);
+
+            } catch (FileNotFoundException fileNotFound) {
+                fileNotFound.printStackTrace();
+            } catch (IOException IOError) {
+                IOError.printStackTrace();
+            }
+
+
 
 
 
@@ -139,7 +187,7 @@ public class SkeddxfUI extends JFrame {
 
     private void button1ActionPerformed(ActionEvent e) {
 
-        DXFDocument dxfDocument = (DXFDocument) context.getBean("dxfDocument");
+
 
 
 

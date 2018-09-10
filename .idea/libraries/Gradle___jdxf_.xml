@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: :jdxf:">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jdxf_lib_v1.0/jdxf.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

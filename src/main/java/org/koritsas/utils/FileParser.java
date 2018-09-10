@@ -1,11 +1,12 @@
 package org.koritsas.utils;
 
-import org.koritsas.datatypes.Metadata;
 import org.koritsas.datatypes.Point;
-import org.koritsas.datatypes.Status;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Vector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -63,7 +64,7 @@ public class FileParser {
             Point p;
             if (point.size() <5) {
 
-                double d1 =Double.parseDouble(point.get(1));
+                double d1 = Double.parseDouble(point.get(1));
                 double d2 = Double.parseDouble(point.get(2));
                 double d3 = Double.parseDouble(point.get(3));
                 p = new Point(point.get(0), Double.parseDouble(point.get(1)), Double.parseDouble(point.get(2)), Double.parseDouble(point.get(3)));
