@@ -5,9 +5,9 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.koritsas.UI.components.JColorComboBox;
+import org.koritsas.configuration.DxfWriter;
 import org.koritsas.configuration.RecordTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -25,11 +25,16 @@ import java.util.Vector;
 /**
  * @author Ilias Koritsas
  */
+
 public class SkeddxfUI extends JFrame {
+
+    @Autowired
     private JFileChooser mFileChooser;
+
 
     public SkeddxfUI() {
         initComponents();
+        this.setVisible(true);
     }
 
     public JMenuItem getImportMenuItem() {
@@ -38,12 +43,10 @@ public class SkeddxfUI extends JFrame {
 
 
 
-    @Autowired
-    ApplicationContext context;
-
-
     private void importMenuItemActionPerformed(ActionEvent e) {
-        mFileChooser = (JFileChooser) context.getBean("fileChooser");
+       // mFileChooser = (JFileChooser) context.getBean("fileChooser");
+
+
         int status =mFileChooser.showDialog(null,"Select");
 
 
@@ -113,12 +116,19 @@ public class SkeddxfUI extends JFrame {
 
 
 
+            DxfWriter writer = new DxfWriter();
+
+            writer.writeDxfFile();
+
+
 
 
         }else if(status == JFileChooser.CANCEL_OPTION){
 
             mFileChooser.cancelSelection();
         }
+
+
     }
 
     public JTable getTable() {
@@ -280,6 +290,9 @@ public class SkeddxfUI extends JFrame {
 
                 //---- mExportMenuItem ----
                 mExportMenuItem.setText("Export"); //NON-NLS
+
+
+
                 mFileMenu.add(mExportMenuItem);
 
                 //---- mExitMenuItem ----
