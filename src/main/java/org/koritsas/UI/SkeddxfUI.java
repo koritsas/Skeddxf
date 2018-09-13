@@ -5,9 +5,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.koritsas.UI.components.JColorComboBox;
-import org.koritsas.configuration.DxfWriter;
-import org.koritsas.configuration.RecordTableModel;
+import org.koritsas.utils.DxfWriter;
+import org.koritsas.utils.RecordTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -26,11 +27,20 @@ import java.util.Vector;
  * @author Ilias Koritsas
  */
 
+@Component
 public class SkeddxfUI extends JFrame {
 
     @Autowired
     private JFileChooser mFileChooser;
 
+
+
+    private DxfWriter writer;
+
+    @Autowired
+    public void setWriter(DxfWriter writer) {
+        this.writer = writer;
+    }
 
     public SkeddxfUI() {
         initComponents();
@@ -44,7 +54,7 @@ public class SkeddxfUI extends JFrame {
 
 
     private void importMenuItemActionPerformed(ActionEvent e) {
-       // mFileChooser = (JFileChooser) context.getBean("fileChooser");
+
 
 
         int status =mFileChooser.showDialog(null,"Select");
@@ -116,7 +126,7 @@ public class SkeddxfUI extends JFrame {
 
 
 
-            DxfWriter writer = new DxfWriter();
+
 
             writer.writeDxfFile();
 
@@ -203,7 +213,6 @@ public class SkeddxfUI extends JFrame {
 
 
     }
-
 
 
 

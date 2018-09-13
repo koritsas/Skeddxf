@@ -1,19 +1,28 @@
-package org.koritsas.configuration;
+package org.koritsas.utils;
 
-import com.jsevy.jdxf.*;
 import org.koritsas.UI.SkeddxfUI;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.swing.*;
-import java.util.Vector;
-
+@Component
 public class DxfWriter {
 
 
-    SkeddxfUI ui;
+    private SkeddxfUI ui;
+
+    @Autowired
+    public void setUi(SkeddxfUI ui) {
+        this.ui = ui;
+    }
+
+    public DxfWriter(){
+
+    }
 
     public void writeDxfFile(){
 
 
+/*
         DXFDocument dxf = new DXFDocument("Example");
 
         DXFGraphics graphics = dxf.getGraphics();
@@ -53,6 +62,8 @@ public class DxfWriter {
     //    System.out.println(dxf.toDXFString());
 
         ui.getTable();
+*/
+
 
     }
 

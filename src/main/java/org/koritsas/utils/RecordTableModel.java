@@ -1,4 +1,4 @@
-package org.koritsas.configuration;
+package org.koritsas.utils;
 
 import org.apache.commons.csv.CSVRecord;
 
