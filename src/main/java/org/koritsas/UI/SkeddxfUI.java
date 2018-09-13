@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
@@ -112,11 +113,14 @@ public class SkeddxfUI extends JFrame {
 
                List<CSVRecord> records = parser.getRecords();
 
-                RecordTableModel model = new RecordTableModel(records);
-                model.populateTable();
 
-               Vector<String> v=model.getDataVector();
-                mTable.setModel(model);
+
+              RecordTableModel model = (RecordTableModel) mTable.getModel();
+
+              model.setCSVRevords(records);
+
+
+
 
             } catch (FileNotFoundException fileNotFound) {
                 fileNotFound.printStackTrace();
@@ -334,25 +338,41 @@ public class SkeddxfUI extends JFrame {
         {
 
             //---- mTable ----
-            mTable.setModel(new DefaultTableModel(
-                new Object[][] {
-                    {null, null, null, null, null},
-                    {null, null, null, null, null},
-                },
-                new String[] {
-                    "Point ID", "X", "Y", "Z", "Description" //NON-NLS
-                }
-            ));
+            mTable.setModel(new RecordTableModel());
             mTable.setCellSelectionEnabled(true);
             mTable.setSurrendersFocusOnKeystroke(true);
             mTable.setSelectionForeground(Color.lightGray);
             mTable.setAutoCreateRowSorter(true);
+
+            mTable.getModel().addTableModelListener(new TableModelListener() {
+                @Override
+                public void tableChanged(TableModelEvent e) {
+                    RecordTableModel model = (RecordTableModel) mTable.getModel();
+
+                    System.out.println(model.getDataVector().isEmpty());
+
+                    System.out.println(model.getDataVector().size());
+
+                    if(model.getDataVector().isEmpty()){
+                        mButton1.setEnabled(false);
+                    }else{
+                        mButton1.setEnabled(true);
+                    }
+
+
+
+                }
+            });
+
             mTablePane.setViewportView(mTable);
         }
         contentPane.add(mTablePane, "cell 0 1,growx"); //NON-NLS
 
         //---- mButton1 ----
         mButton1.setText("Export to DXF"); //NON-NLS
+        mButton1.setEnabled(false);
+
+
         mButton1.addActionListener(e -> button1ActionPerformed(e));
         contentPane.add(mButton1, "cell 1 1"); //NON-NLS
 

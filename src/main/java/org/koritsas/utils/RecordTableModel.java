@@ -3,34 +3,31 @@ package org.koritsas.utils;
 import org.apache.commons.csv.CSVRecord;
 
 import javax.swing.table.DefaultTableModel;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
 public class RecordTableModel extends DefaultTableModel {
 
-    private List<CSVRecord> mRecords;
-    private Vector<Vector<String>> dataVector = new Vector<Vector<String>>();
-
-    public  RecordTableModel(List<CSVRecord> records){
-
-
-        this.mRecords = records;
-
-        this.addColumn("Point");
-        this.addColumn("X");
-        this.addColumn("Y");
-        this.addColumn("Z");
-        this.addColumn("Description");
+    private final Vector<String> NAME_VECTOR = new Vector<String>(Arrays.asList(new String[] {
+            "Point ID", "X", "Y", "Z", "Description" //NON-NLS
+    }));
 
 
-
+    public RecordTableModel(){
+            this.setDataVector( new Object[][] {
+                    {null, null, null, null, null},
+            },new String[] {
+                    "Point ID", "X", "Y", "Z", "Description" //NON-NLS
+            });
 
     }
 
-    public void populateTable(){
+    public void setCSVRevords(List<CSVRecord> records){
 
+        Vector data = new Vector();
 
-        for (CSVRecord rec:mRecords){
+        for (CSVRecord rec:records){
             Vector vector = new Vector();
 
             vector.add(0, rec.get(0));
@@ -39,24 +36,14 @@ public class RecordTableModel extends DefaultTableModel {
             vector.add(3,  Double.parseDouble(rec.get(3)));
             vector.add(4,  rec.get(4));
 
-            dataVector.add(vector);
+            data.add(vector);
 
         }
 
-
-        Vector<String> names = new Vector<String>();
-        names.add("Id");
-        names.add("X");
-        names.add("Y");
-        names.add("Z");
-        names.add("Description");
-
-
-        this.setDataVector(dataVector,names);
-
-
-
+        this.setDataVector(data,NAME_VECTOR);
     }
+
+
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
