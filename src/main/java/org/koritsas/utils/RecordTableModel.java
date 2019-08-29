@@ -21,6 +21,7 @@ public class RecordTableModel extends DefaultTableModel {
                     "Point ID", "X", "Y", "Z", "Description" //NON-NLS
             });
 
+            ;
     }
 
     public void setCSVRevords(List<CSVRecord> records){

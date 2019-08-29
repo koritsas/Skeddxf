@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.4.0.167" Java: "1.8.0_152-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -92,18 +92,25 @@ new FormModel {
 				name: "tabbedPane"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "fill,insets 0,hidemode 3,aligny center"
-					"$columnConstraints": "[fill][][][][fill]"
+					"$columnConstraints": "[fill][][][][][fill]"
 					"$rowConstraints": "[grow,center][grow]"
 				} ) {
 					name: "pointTab"
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "ThreeDCheckBox"
+						"horizontalAlignment": 0
+						"text": "Create 3D Point"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 1 2 1"
+					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label15"
 						"text": "Layer:"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 1 1,alignx center,growx 0"
+						"value": "cell 2 1,alignx center,growx 0"
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "pointName"
@@ -112,13 +119,13 @@ new FormModel {
 							"JavaCodeGenerator.variableGetter": true
 						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 2 1,alignx center,growx 0"
+						"value": "cell 3 1,alignx center,growx 0"
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label16"
 						"text": "Color:"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 3 1,alignx center,growx 0"
+						"value": "cell 4 1,alignx center,growx 0"
 					} )
 					add( new FormComponent( "org.koritsas.UI.components.JColorComboBox" ) {
 						name: "pointColorBox"
@@ -126,7 +133,7 @@ new FormModel {
 							"JavaCodeGenerator.variableGetter": true
 						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 4 1,growy"
+						"value": "cell 5 1,growy"
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Point"

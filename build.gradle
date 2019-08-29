@@ -28,6 +28,10 @@ repositories {
        // dirs '/home/koritsas/Downloads/kabeja-0.4/lib'
 
         dirs 'C:/Users/koritsas.il/IdeaProjects/Skeddxf/lib/jdxf_lib_v1.0'
+
+        dirs 'C:/Users/koritsas.il/Documents'
+
+        dirs 'C:/Users/koritsas.il/Documents/JavaLibs'
     }
 
     mavenCentral()
@@ -47,8 +51,9 @@ dependencies {
     compile group: 'com.miglayout', name: 'miglayout-swing', version: '5.0'
     runtime('org.springframework.boot:spring-boot-devtools')
 
-
+    compile name: 'random-jpa-1.0.1'
     compile group: 'org.apache.commons', name: 'commons-csv', version: '1.5'
     compile name: "jdxf"
+    compile name: 'DXFExporter'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

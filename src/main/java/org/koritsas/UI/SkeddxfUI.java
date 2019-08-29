@@ -1,5 +1,6 @@
 package org.koritsas.UI;
 
+import com.sun.org.apache.xpath.internal.operations.String;
 import net.miginfocom.swing.MigLayout;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -53,6 +54,9 @@ public class SkeddxfUI extends JFrame {
     }
 
 
+    public JCheckBox getmThreeDCheckBox() {
+        return mThreeDCheckBox;
+    }
 
     private void importMenuItemActionPerformed(ActionEvent e) {
 
@@ -67,11 +71,7 @@ public class SkeddxfUI extends JFrame {
 
 
             Vector<String> names = new Vector<String>();
-            names.add("Id");
-            names.add("X");
-            names.add("Y");
-            names.add("Z");
-            names.add("Description");
+
 
             Reader reader;
             CSVFormat format;
@@ -104,8 +104,6 @@ public class SkeddxfUI extends JFrame {
                     break;
             }
 
-
-
             try {
                reader=  new FileReader(inputFile);
 
@@ -113,14 +111,11 @@ public class SkeddxfUI extends JFrame {
 
                List<CSVRecord> records = parser.getRecords();
 
+               RecordTableModel model = (RecordTableModel) mTable.getModel();
 
+               model.setCSVRevords(records);
 
-              RecordTableModel model = (RecordTableModel) mTable.getModel();
-
-              model.setCSVRevords(records);
-
-
-
+               reader.close();
 
             } catch (FileNotFoundException fileNotFound) {
                 fileNotFound.printStackTrace();
@@ -271,6 +266,9 @@ public class SkeddxfUI extends JFrame {
         mDescriptionName = new JTextField();
         mLabel12 = new JLabel();
         mDescriptionColorBox = new JColorComboBox();
+        //---- ThreeDCheckBox ----
+        mThreeDCheckBox = new JCheckBox();
+
 
         //======== this ========
         setTitle("Skeddxf"); //NON-NLS
@@ -344,10 +342,13 @@ public class SkeddxfUI extends JFrame {
             mTable.setSelectionForeground(Color.lightGray);
             mTable.setAutoCreateRowSorter(true);
 
+
+
             mTable.getModel().addTableModelListener(new TableModelListener() {
                 @Override
                 public void tableChanged(TableModelEvent e) {
                     RecordTableModel model = (RecordTableModel) mTable.getModel();
+
 
                     System.out.println(model.getDataVector().isEmpty());
 
@@ -426,6 +427,10 @@ public class SkeddxfUI extends JFrame {
                 mLabel16.setText("Color:"); //NON-NLS
                 mPointTab.add(mLabel16, "cell 3 1,alignx center,growx 0"); //NON-NLS
                 mPointTab.add(mPointColorBox, "cell 4 1,growy"); //NON-NLS
+
+                //---- ThreeDCheckBox ----
+                mThreeDCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
+                mThreeDCheckBox.setText("Create 3D Point");
             }
             mTabbedPane.addTab("Point", mPointTab); //NON-NLS
 
@@ -607,5 +612,8 @@ public class SkeddxfUI extends JFrame {
     private JTextField mDescriptionName;
     private JLabel mLabel12;
     private JColorComboBox mDescriptionColorBox;
+
+    private JCheckBox mThreeDCheckBox;
+
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

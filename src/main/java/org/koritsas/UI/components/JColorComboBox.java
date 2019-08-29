@@ -1,11 +1,12 @@
 package org.koritsas.UI.components;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import javax.swing.*;
+import java.util.Scanner;
 
 public class JColorComboBox extends JComboBox {
 
@@ -23,7 +24,7 @@ public class JColorComboBox extends JComboBox {
         setModel(model);
         setRenderer(new ColorRenderer());
         this.setOpaque(true);
-        this.setSelectedIndex(0);
+       // this.setSelectedIndex(0);
     }
     @Override
     public void setSelectedItem(Object anObject) {
@@ -44,6 +45,27 @@ public class JColorComboBox extends JComboBox {
 
         colors = new <String, Color>Hashtable();
 
+
+        File colorsFile = new File("src/main/resources/colors.txt");
+
+        try {
+            Scanner scanner = new Scanner(colorsFile);
+
+            while (scanner.hasNextLine()){
+                String[] colorString= scanner.nextLine().split(",");
+                Color color = new Color(Integer.parseInt(colorString[1]),Integer.parseInt(colorString[2]),Integer.parseInt(colorString[3]));
+
+                colors.put(colorString[0],color);
+            }
+
+
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+/*
         colors.put("WHITE", Color.WHITE);
         colors.put("BLUE", Color.BLUE);
         colors.put("GREEN", Color.GREEN);
@@ -56,7 +78,7 @@ public class JColorComboBox extends JComboBox {
         colors.put("PINK",Color.PINK);
         colors.put("MAGENTA", Color.MAGENTA);
         colors.put("BLACK", Color.BLACK);
-
+*/
         return colors;
     }
 
